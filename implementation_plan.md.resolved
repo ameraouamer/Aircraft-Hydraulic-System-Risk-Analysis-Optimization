@@ -1,0 +1,75 @@
+# Goal Description
+**Project: Aircraft Hydraulic System Risk Analysis & Optimization**
+
+The goal is to design an architecture that simulates an aircraft's hydraulic system to analyze risks and optimize its operations. We need to define the synthetic data generation schema, graph construction methodologies, and break down the project's logic without discussing the implementation code.
+
+## User Review Required
+Please review the proposed architecture, synthetic data schema, and methodologies outlined below. Let me know if you would like me to adjust any of these ideas. Once you approve this, we can progress to coding the actual system out components.
+
+## Proposed Architecture Plan
+
+### 1. Re-Explaining the Project Components
+
+The project can be broken down into four core, interconnected pillars:
+
+*   **Pillar 1: Data Generation (The Environment)**
+    This module simulates the physical world. It generates the synthetic baseline (the physical network of components and pipes) and the operational telemetry (the real-time readings). It needs to mimic the complex behavior of fluid dynamics inside an aircraft under different conditions (e.g., cruising, landing, maneuvering).
+*   **Pillar 2: System Graph Construction (The Brain Model)**
+    Here, the raw data is formatted into a structural graph. By turning components into "Nodes" and pipes into "Edges", we build a computational topology. This enables us to run mathematical analyses on the system's structural integrity, pinpoint bottlenecks, and track how a failure cascades across the network.
+*   **Pillar 3: Risk Analysis Model (The Detective)**
+    Using the system graph, we continuously assess the health of the system. We proactively inject failures—such as pump degradation, valve jams, or pipe leaks—to observe the simulated impact. The output is a risk metric indicating the likelihood of catastrophic failure based on current telemetry.
+*   **Pillar 4: Optimization Engine (The Problem Solver)**
+    When a risk reaches a critical threshold, the system must act. The optimizer determines the best intervention. Whether it’s rerouting hydraulic fluid to bypass a damaged section, suggesting predictive maintenance schedules, or optimizing flow rates to reduce system stress, this module calculates the most efficient corrective measure.
+
+### 2. Synthetic Data Schema
+
+To make the simulation realistic, the synthetic data needs strict schema definitions partitioned into static and dynamic datasets.
+
+#### Static Data (System Topology)
+This represents the physical blueprint of the hydraulic system.
+
+**Hydraulic Nodes (Components)**
+*   `Node_ID` (Unique Identifier)
+*   `Component_Type` (e.g., Engine Driven Pump, Actuator, Selector Valve, Reservoir, Filter)
+*   `Nominal_Pressure_Threshold` (The expected operational pressure)
+*   `Max_Temperature_Tolerance` (Maximum safe heat limit)
+*   `Criticality_Score` (A weight indicating how crucial this component is; an elevator actuator is more critical than a secondary system).
+
+**Hydraulic Edges (Pipes/Lines)**
+*   `Edge_ID` (Unique Identifier)
+*   `Source_Node` & `Target_Node` (To map connections)
+*   `Length` (Physical distance fluid must travel)
+*   `Diameter` (Dictates max flow capacity)
+*   `Material_Type` (e.g., Titanium, Steel—affects stress tolerance and wear modeling)
+
+#### Dynamic Data (Telemetry / Time-Series)
+This is generated continuously across timestamps (t0, t1, ...).
+*   `Timestamp`
+*   `Component_ID` (Links back to Node or Edge ID)
+*   `Pressure` (Fluctuates based on simulated load)
+*   `Temperature` (Increases under high friction or pump use)
+*   `Flow_Rate` (Usually measured across pipes)
+*   `Status` (Healthy, Warning, Critical, Offline)
+
+### 3. Best Way to Build the System Graph
+
+Constructing the system graph relies on pairing the right representation with the right framework.
+
+**Recommended Approach:**
+*   **Directed Graph (DiGraph):** Because hydraulic fluid inherently flows in specific directions under standard operations (from reservoirs through pumps to actuators), a Directed Graph is mandatory.
+*   **Bipartite/Multi-Modal Modeling:** Consider treating active components (Pumps/Valves) and passive components (Junctions/Pipes) differently conceptually when analyzing the graph.
+
+**Tools Concept:**
+*   We'll use standard graph theory frameworks like **NetworkX** for the structural backbone.
+*   Nodes and Edges in the graph must have "attributes" mapped directly from the Data Generation phase. When the dynamic data ticks to the next second, the graph attributes are instantly updated with the new `Pressure`, `Temperature`, and `Flow_Rate`.
+
+**Why this is the best way:**
+Building it as a feature-rich, dynamic Directed Graph allows you to run classical graph algorithms immediately:
+*   **Pathfinding (Shortest Path):** If a bypass valve is needed, you instantly know the shortest route to redirect fluid.
+*   **Centrality Analysis:** You can easily identify nodes with the highest "Betweenness Centrality"—meaning if this junction fails, it splits the hydraulic system in two.
+
+## Verification Plan
+
+### Manual Verification
+1. Review this document to confirm all requested theoretical parts of the architecture hit your requirement goals.
+2. Confirm if any components (such as sensors) are missing from the Data Generation synthetic parameters or if we need more features right away.
