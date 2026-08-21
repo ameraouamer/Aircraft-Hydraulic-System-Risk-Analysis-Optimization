@@ -5,6 +5,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
+from sklearn.pipeline import Pipeline
+
 
 def prepare_and_scale_data(df: pd.DataFrame, target_column: str= 'status' ):
     """
