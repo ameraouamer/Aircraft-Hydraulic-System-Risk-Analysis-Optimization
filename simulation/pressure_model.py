@@ -11,7 +11,6 @@ def calculate_pump_pressure(node_data: dict, current_time: int) -> float:
     noise = random.gauss(mu=0, sigma=10.0)
     
     # Check if a failure mode is currently active on this pump
-    # (The Failure Model would set this attribute in the graph)
     damage_factor = node_data.get("Wear_Factor", 0.0)
     
     # The more damaged it is, the less pressure it can produce 
